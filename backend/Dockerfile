@@ -36,9 +36,15 @@ RUN chown -R www-data:www-data /var/www \
 # Expose port
 EXPOSE 8000
 
+# Copy start.sh
 COPY start.sh /start.sh
+
+# Make it executable
 RUN chmod +x /start.sh
+
+# Run this script as the container's command
 CMD ["/start.sh"]
+
 
 
 # Start Laravel server (artisan commands moved to start command in Render)
