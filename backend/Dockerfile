@@ -29,9 +29,6 @@ COPY . .
 # Install PHP dependencies
 RUN composer install --optimize-autoloader --no-dev
 
-# Generate Laravel app key
-RUN php artisan key:generate
-
 # Set correct permissions
 RUN chown -R www-data:www-data /var/www \
     && chmod -R 755 /var/www/storage
@@ -39,5 +36,5 @@ RUN chown -R www-data:www-data /var/www \
 # Expose port
 EXPOSE 8000
 
-# Start Laravel server
+# Start Laravel server (artisan commands moved to start command in Render)
 CMD php artisan serve --host=0.0.0.0 --port=8000
