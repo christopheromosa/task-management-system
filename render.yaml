@@ -1,0 +1,34 @@
+services:
+  - type: web
+    name: laravel-backend
+    rootDir: backend
+    runtime: php
+    buildCommand: |
+      composer install --optimize-autoloader --no-dev
+      php artisan config:cache
+      php artisan migrate --force
+    startCommand: php artisan serve --host 0.0.0.0 --port 10000
+    envVars:
+      - key: APP_ENV
+        value: production
+      - key: APP_DEBUG
+        value: false
+      - key: DB_CONNECTION
+        value: sqlite
+      - key: DB_DATABASE
+        value: /persistent/sqlite/database.sqlite
+      - key: APP_KEY
+        generateValue: true
+    disk:
+      name: sqlite
+      mountPath: /persistent/sqlite
+      sizeGB: 1
+
+  - type: static
+    name: vuejs-frontend
+    rootDir: frontend
+    buildCommand: npm install && npm run build
+    staticPublishPath: dist
+    envVars:
+      - key: VITE_API_URL
+        value: https://laravel-backend.onrender.com/api

@@ -1,7 +1,7 @@
 <!-- src/components/users/EditUserDialog.vue -->
 <template>
   <div class="modal fade show d-block" tabindex="-1" role="dialog">
-    <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-dialog modal-lg" role="document"> 
       <div class="modal-content shadow">
         <div class="modal-header bg-primary text-white">
           <h5 class="modal-title">Edit User</h5>
