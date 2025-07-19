@@ -23,29 +23,43 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 # Set working directory
 WORKDIR /var/www
 
-# Copy Laravel files into container
+# Copy only composer files first for better caching
+COPY composer.json composer.lock ./
+
+# Install PHP dependencies (no-dev for production)
+RUN composer install --optimize-autoloader --no-dev --no-scripts --no-autoloader
+
+# Copy the rest of the application
 COPY . .
 
-# Install PHP dependencies
-RUN composer install --optimize-autoloader --no-dev
+# Now optimize the autoloader and run package:discover
+RUN composer dump-autoload --optimize && \
+    php artisan package:discover --ansi
+
+# Create SQLite database file if it doesn't exist
+RUN touch database/database.sqlite
 
 # Set correct permissions
 RUN chown -R www-data:www-data /var/www \
-    && chmod -R 755 /var/www/storage
+    && chmod -R 755 /var/www/storage \
+    && chmod -R 755 /var/www/bootstrap/cache
+
+# Before key:generate
+RUN cp .env.example .env
+
+# Generate application key
+RUN php artisan key:generate
 
 # Expose port
 EXPOSE 8000
 
-# Copy start.sh
-COPY start.sh /start.sh
+# Health check
+HEALTHCHECK --interval=30s --timeout=3s \
+    CMD curl -f http://localhost:8000 || exit 1
 
-# Make it executable
+# Start script
+COPY start.sh /start.sh
 RUN chmod +x /start.sh
 
-# Run this script as the container's command
+# Run the start script
 CMD ["/start.sh"]
-
-
-
-# Start Laravel server (artisan commands moved to start command in Render)
-CMD php artisan serve --host=0.0.0.0 --port=8000
