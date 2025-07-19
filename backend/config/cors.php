@@ -19,7 +19,7 @@ return [
 
     'allowed_methods' => ['*'],
 
-    'allowed_origins' => ['http://localhost:5173'], // For development only - specify your frontend URL in production
+    'allowed_origins' => ['https://task-management-system-fronted-6fd9.onrender.com/'], // For development only - specify your frontend URL in production
 
     'allowed_origins_patterns' => [],
 
