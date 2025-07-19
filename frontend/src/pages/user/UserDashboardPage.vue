@@ -62,8 +62,10 @@
 <script setup lang="ts">
 import { onMounted, ref, computed } from 'vue'
 import { useAuthStore } from '../../stores/auth'
-import { Task } from '../../types'
+
 import { useTasksStore } from '../../stores/tasks'
+import { Task } from '../../types'
+
 
 
 const authStore = useAuthStore()

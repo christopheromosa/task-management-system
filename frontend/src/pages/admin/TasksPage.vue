@@ -51,9 +51,10 @@
 <script setup lang="ts">
 import { ref, computed, onMounted } from 'vue'
 
-import CreateTaskDialog from '@/components/tasks/CreateTaskDialog.vue'
 import { useTasksStore } from '../../stores/tasks'
 import { Task } from '../../types'
+import CreateTaskDialog from '../../components/tasks/CreateTaskDialog.vue'
+
 
 const tasksStore = useTasksStore()
 const showCreateModal = ref(false)

@@ -65,12 +65,13 @@
 
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from 'vue'
-import { Modal } from 'bootstrap'
+
 
 import UserDetailsPage from './UserDetailsPage.vue'
 import { useUsersStore } from '../../stores/users'
 import AddUserDialog from '../../components/users/AddUserDialog.vue'
 import { computed } from 'vue'
+import { Modal } from 'bootstrap'
 
 const emit = defineEmits(['closed'])
 
@@ -84,7 +85,7 @@ const showAddUser = ref(false)
 
 
 const nonAdminUsers = computed(() =>
-  usersStore.users.filter(user => user.is_admin !== 1)
+  usersStore.users.filter(user => Number(user.is_admin) !== 1)
 )
 
 

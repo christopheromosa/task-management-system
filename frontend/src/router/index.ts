@@ -1,24 +1,24 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
 // Auth pages
-import LoginForm from '@/components/auth/LoginForm.vue'
-import RegisterForm from '@/components/auth/RegisterForm.vue'
+import LoginForm from '../components/auth/LoginForm.vue'
+import RegisterForm from '../components/auth/RegisterForm.vue'
 
 // Admin pages
-import AdminDashboard from '@/pages/admin/DashboardPage.vue'
-import UsersPage from '@/pages/admin/UsersPage.vue'
-import TasksPage from '@/pages/admin/TasksPage.vue'
-import ProfilePage from '@/pages/admin/ProfilePage.vue'
+import AdminDashboard from '../pages/admin/DashboardPage.vue'
+import UsersPage from '../pages/admin/UsersPage.vue'
+import TasksPage from '../pages/admin/TasksPage.vue'
+import ProfilePage from '../pages/admin/ProfilePage.vue'
 
 // User pages
 // import UserDashboard from '@/pages/user/DashboardPage.vue'
 
 // Store
-import { useAuthStore } from '@/stores/auth'
-import UserDashboardPage from '@/pages/user/UserDashboardPage.vue'
-import NotificationsPage from '@/pages/user/NotificationsPage.vue'
-import UserProfilePage from '@/pages/user/UserProfilePage.vue'
-import UserTasksPage from '@/pages/user/UserTasksPage.vue'
+import { useAuthStore } from '../stores/auth'
+import UserDashboardPage from '../pages/user/UserDashboardPage.vue'
+import NotificationsPage from '../pages/user/NotificationsPage.vue'
+import UserProfilePage from '../pages/user/UserProfilePage.vue'
+import UserTasksPage from '../pages/user/UserTasksPage.vue'
 
 const routes = [
   { path: '/', redirect: '/login' },
@@ -63,7 +63,7 @@ const routes = [
   {
     path: '/:pathMatch(.*)*',
     name: 'NotFound',
-    component: () => import('@/pages/ErrorPage.vue'),
+    component: () => import('../pages/ErrorPage.vue'),
     meta: { layout: 'auth' },
   },
 ]

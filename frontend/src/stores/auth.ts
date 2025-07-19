@@ -1,7 +1,6 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { defineStore } from 'pinia'
-import api from '@/api/client'
-import type { User } from '@/types/user'
+import { User } from '../types'
+import api from '../api/client'
 
 interface AuthState {
   user: User | null

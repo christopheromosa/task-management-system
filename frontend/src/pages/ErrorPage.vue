@@ -12,5 +12,4 @@
 </template>
 
 <script setup lang="ts">
-// No script needed unless you want custom behavior
 </script>
