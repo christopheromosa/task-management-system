@@ -1,5 +1,4 @@
 <template>
-
   <div class="auth-layout">
     <div class="auth-box shadow-sm">
       <h2 class="text-center mb-4 fw-bold text-primary">Create Account</h2>
@@ -49,12 +48,12 @@
             {{ errors.password_confirmation }}
           </div>
         </div>
+
         <!-- Is Admin Checkbox -->
         <div class="mb-3 form-check">
           <input id="is_admin" type="checkbox" class="form-check-input" v-model="formValues.is_admin" />
           <label for="is_admin" class="form-check-label">Register as Admin</label>
         </div>
-
 
         <!-- Submit -->
         <button type="submit" class="btn btn-primary w-100 d-flex align-items-center justify-content-center"
@@ -69,7 +68,6 @@
           <RouterLink to="/login" class="text-decoration-none fw-medium">Login</RouterLink>
         </p>
       </form>
-
     </div>
   </div>
 </template>
@@ -146,10 +144,8 @@ const handleSubmitFn = handleSubmit(async () => {
   }
 
   try {
-    // Don't send password_confirmation to backend
     const { name, email, password, is_admin } = result.data
     console.log(result.data);
-
     await authStore.register({ name, email, password, is_admin })
     console.log('Registered successfully:', result.data)
   }
@@ -157,7 +153,6 @@ const handleSubmitFn = handleSubmit(async () => {
     const message = error?.response?.data?.message || error?.message || 'Registration failed try again'
     formError.value = message
   }
-
 })
 </script>
 
@@ -167,15 +162,60 @@ const handleSubmitFn = handleSubmit(async () => {
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  width: 100%;
   padding: 1rem;
+  width: 100%;
   background: linear-gradient(to right, #e9eff5, #dee2e7);
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .auth-box {
-  width: 40%;
-  padding: 4rem;
-  box-shadow: 10px 0px 10px black;
+  width: 100%;
+  max-width: 500px;
+  padding: 2rem;
+  border-radius: 8px;
+  background-color: white;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .auth-box {
+    padding: 1.5rem;
+    margin: 0 1rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .auth-box {
+    padding: 1.25rem;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+  }
+}
+
+/* Input group button styling */
+.input-group button {
+  border-color: #ced4da;
+}
+
+.input-group button:hover {
+  background-color: #f8f9fa;
+}
+
+/* Loading spinner alignment */
+.spinner-border {
+  margin: 0 auto;
+  display: inline-block;
+}
+
+/* Checkbox styling */
+.form-check-input {
+  margin-top: 0.2em;
+}
+
+.form-check-label {
+  margin-left: 0.5em;
 }
 </style>

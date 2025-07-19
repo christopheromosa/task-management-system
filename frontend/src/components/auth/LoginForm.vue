@@ -1,7 +1,7 @@
 <template>
   <div class="auth-layout">
     <div class="auth-box shadow-sm">
-      <h2 class="text-center mb-4 fw-bold text-primary"> Task Manager (Sign-in)</h2>
+      <h2 class="text-center mb-4 fw-bold text-primary">Task Manager (Sign-in)</h2>
       <form @submit.prevent="handleLogin">
         <div class="mb-3">
           <label for="email" class="form-label">Email</label>
@@ -17,7 +17,6 @@
               <i :class="showPassword ? 'bi bi-eye-slash' : 'bi bi-eye'"></i>
             </button>
           </div>
-
         </div>
 
         <button type="submit" class="btn btn-primary w-100 d-flex align-items-center justify-content-center"
@@ -31,7 +30,6 @@
           <RouterLink to="/register" class="text-decoration-none fw-medium">Register</RouterLink>
         </p>
       </form>
-
     </div>
   </div>
 </template>
@@ -40,7 +38,6 @@
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { useAuthStore } from '../../stores/auth'
-
 
 const showPassword = ref(false)
 const form = ref({ email: '', password: '' })
@@ -53,13 +50,13 @@ const handleLogin = async () => {
   try {
     await authStore.login(form.value)
     console.log(authStore.isAdmin);
-
     router.push(authStore.isAdmin ? '/admin/admin-dashboard' : '/user/user-dashboard')
   } finally {
     isLoading.value = false
   }
 }
 </script>
+
 <style scoped>
 .auth-layout {
   display: flex;
@@ -73,8 +70,44 @@ const handleLogin = async () => {
 }
 
 .auth-box {
-  width: 40%;
-  padding: 4rem;
-  box-shadow: 10px 10px 10px black;
+  width: 100%;
+  max-width: 500px;
+  padding: 2rem;
+  border-radius: 8px;
+  background-color: white;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .auth-box {
+    padding: 1.5rem;
+    margin: 0 1rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .auth-box {
+    padding: 1.25rem;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+  }
+}
+
+/* Input group button styling */
+.input-group button {
+  border-color: #ced4da;
+}
+
+.input-group button:hover {
+  background-color: #f8f9fa;
+}
+
+/* Loading spinner alignment */
+.spinner-border {
+  margin: 0 auto;
+  display: inline-block;
 }
 </style>
