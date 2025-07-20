@@ -44,9 +44,6 @@ RUN chown -R www-data:www-data /var/www \
     && chmod -R 755 /var/www/storage \
     && chmod -R 755 /var/www/bootstrap/cache
 
-# Before key:generate
-RUN cp .env.example .env
-
 # Generate application key
 RUN php artisan key:generate
 
